@@ -14,7 +14,7 @@
             </select>
         </div>
     </div>
-    <div class="overflow-x-scroll beautify-scrollbar bg-white dark:bg-slate-800 rounded-b-xl shadow-sm" >
+    <div class="overflow-x-auto beautify-scrollbar bg-white dark:bg-slate-800 rounded-b-xl shadow-sm" >
         <table class="w-full text-sm text-left text-slate-500 dark:text-slate-400">
             <thead class="text-xs text-slate-700 uppercase bg-slate-50 dark:bg-slate-700/50 dark:text-slate-300">
                 <th class="px-6 py-4 font-semibold">S/N</th>

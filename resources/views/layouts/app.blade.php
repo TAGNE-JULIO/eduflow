@@ -42,8 +42,8 @@
                             </div>
                         </div>
                     </div>
-                    <main class="flex-1 p-6" id="main">
-                        <div class="max-w-7xl mx-auto w-full">
+                    <main class="flex-1 p-6 min-w-0" id="main">
+                        <div class="max-w-7xl mx-auto w-full min-w-0">
                             @yield('content') 
                         </div>
                     </main>
