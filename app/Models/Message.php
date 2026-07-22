@@ -17,6 +17,11 @@ class Message extends Model
         'is_read',
     ];
 
+    protected $casts = [
+        'body' => 'encrypted',
+        'is_read' => 'boolean',
+    ];
+
     public function sender()
     {
         return $this->belongsTo(User::class, 'sender_id');
