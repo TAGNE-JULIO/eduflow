@@ -9,6 +9,9 @@ use App\Models\FeeInvoiceRecord;
 use App\Services\Fee\FeeInvoiceRecordService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+use Illuminate\Http\Request;
+use Stripe\Stripe;
+use Stripe\Checkout\Session;
 
 class FeeInvoiceRecordController extends Controller
 {
@@ -89,5 +92,74 @@ class FeeInvoiceRecordController extends Controller
         $this->feeInvoiceRecordService->addPayment($feeInvoiceRecord, $request->validated());
 
         return back()->with('success', 'Payment added to Fee Successfully');
+    }
+
+    public function stripePay(FeeInvoiceRecord $feeInvoiceRecord, Request $request): RedirectResponse
+    {
+        $this->authorize('update', [$feeInvoiceRecord]);
+
+        $amountToPay = $request->input('pay');
+        if (!$amountToPay || $amountToPay <= 0) {
+            return back()->with('danger', 'Invalid payment amount');
+        }
+
+        Stripe::setApiKey(env('STRIPE_SECRET'));
+
+        $session = Session::create([
+            'payment_method_types' => ['card'],
+            'line_items' => [[
+                'price_data' => [
+                    'currency' => 'usd',
+                    'product_data' => [
+                        'name' => $feeInvoiceRecord->fee->name,
+                        'description' => 'Payment for ' . $feeInvoiceRecord->feeInvoice->name,
+                    ],
+                    'unit_amount' => $amountToPay * 100, // Stripe expects cents
+                ],
+                'quantity' => 1,
+            ]],
+            'mode' => 'payment',
+            'success_url' => route('fee-invoices-records.stripe-success', ['session_id' => '{CHECKOUT_SESSION_ID}', 'record_id' => $feeInvoiceRecord->id, 'amount' => $amountToPay]),
+            'cancel_url' => route('fee-invoices-records.stripe-cancel'),
+        ]);
+
+        return redirect()->away($session->url);
+    }
+
+    public function stripeSuccess(Request $request): RedirectResponse
+    {
+        $sessionId = $request->input('session_id');
+        $recordId = $request->input('record_id');
+        $amount = $request->input('amount');
+
+        if (!$sessionId || !$recordId || !$amount) {
+            return redirect()->route('dashboard')->with('danger', 'Invalid payment session');
+        }
+
+        Stripe::setApiKey(env('STRIPE_SECRET'));
+        
+        try {
+            $session = Session::retrieve($sessionId);
+            if ($session->payment_status === 'paid') {
+                $feeInvoiceRecord = FeeInvoiceRecord::findOrFail($recordId);
+                
+                // Add payment to the record
+                $this->feeInvoiceRecordService->addPayment($feeInvoiceRecord, [
+                    'pay' => $amount
+                ]);
+                
+                return redirect()->route('fee-invoices.pay', $feeInvoiceRecord->fee_invoice_id)
+                                 ->with('success', 'Online Payment Successful');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('dashboard')->with('danger', 'Error verifying payment: ' . $e->getMessage());
+        }
+
+        return redirect()->route('dashboard')->with('danger', 'Payment not completed');
+    }
+
+    public function stripeCancel(): RedirectResponse
+    {
+        return redirect()->route('dashboard')->with('danger', 'Payment was cancelled');
     }
 }

@@ -32,6 +32,8 @@
                 @can('read subject')
                     <x-info-box title="{{$parents}}" text="Parents" icon=" text-dark" theme="purple" url="{{route('parents.index')}}" url-text="View Parents"  colour="bg-violet-700"  text-colour="text-white"/>
                 @endcan
+                <x-info-box title="{{$assignments}}" text="Assignments" icon="fas fa-tasks text-dark" colour="bg-cyan-600" text-colour="text-white" url="{{route('assignments.index')}}" url-text="View assignments"/>
+                <x-info-box title="{{$studyMaterials}}" text="Study Materials" icon="fas fa-book-reader text-dark" colour="bg-teal-600" text-colour="text-white" url="{{route('study-materials.index')}}" url-text="View study materials"/>
             </div>
         </div>
     </div>

@@ -27,7 +27,7 @@
                     </div>
 
                     <div class="flex justify-end mt-3">
-                        <x-button type="button" class="bg-gray-800"
+                        <x-button type="button" class="bg-slate-800"
                                 x-show="! recovery"
                                 x-on:click="
                                             recovery = true;
@@ -36,7 +36,7 @@
                             {{ __('Use a recovery code') }}
                         </x-button>
 
-                        <x-button type="button" class="bg-gray-800 text-xs md:text-base px-2"
+                        <x-button type="button" class="bg-slate-800 text-xs md:text-base px-2"
                                 x-show="recovery"
                                 x-on:click="
                                             recovery = false;

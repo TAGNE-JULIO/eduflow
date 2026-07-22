@@ -1,171 +1,157 @@
-# Skuul school management system
+<div align="center">
+  <img src="public/application-images/skuul-logo.png" alt="Logo Skuul" width="120" />
+  <h1>🎓 Skuul - Système Intégré de Gestion Scolaire (ERP)</h1>
+  <p>Une solution logicielle complète, moderne et performante pour la gestion numérisée des établissements scolaires.</p>
+</div>
 
-<p align="center">
-    <!-- <a href="https://packagist.org/packages/yungifez/skuul">
-        <img src="https://poser.pugx.org/yungifez/skuul/d/total.svg" alt="Total Composer Downloads">
-    </a> -->
-    <a href="https://packagist.org/packages/yungifez/skuul">
-        <img src="https://poser.pugx.org/yungifez/skuul/v/stable.svg" alt="Latest Stable Version">
-    </a>
-    <a href="https://packagist.org/packages/yungifez/skuul">
-        <img src="https://poser.pugx.org/yungifez/skuul/license.svg" alt="License">
-    </a>
-</p>
+---
 
->In search of good school management systems written in laravel, I tried so many although most were quite remarkably good they lacked some essential features that I would have loved in a school management system.This made me passionate in building my own school management system. Although it has been difficult, it's actually forming up into a quite useable project.
+## 📖 Introduction
 
-![schooldash-dahboard-page](https://user-images.githubusercontent.com/63137056/216740379-18cb9f1d-5e80-4bc8-8b99-07d08ea98da4.png)
+**Skuul** est un Système de Gestion Scolaire (ERP - Enterprise Resource Planning) complet et robuste, développé avec le puissant framework **Laravel (PHP)**, la technologie réactive **Livewire**, et l'élégance de **Tailwind CSS**. 
 
+Ce système a pour vocation de numériser intégralement l'infrastructure des écoles (primaires, secondaires, lycées, etc.) en gérant chaque aspect du cycle de vie académique : de la gestion des admissions à la facturation des frais de scolarité, en passant par les évaluations, les emplois du temps et la communication.
 
-# CONGRATS V2 OF SKUUL IS OUT
+Doté d'une interface utilisateur (UI) premium, moderne et parfaitement responsive (adaptable sur PC, tablettes et smartphones), Skuul réduit la fracture entre l'administration, le corps enseignant, les parents et les élèves grâce à des tableaux de bord interactifs et des processus hautement optimisés.
 
+---
 
-Skuul is awesome, but it had a few shortcomings when it came to some areas like UI speed and application slugishness as it grows. Version 2 fixes these issues and also improves on accessibility. 
+## 🎯 Public Cible
 
-V2 is way faster and doesn't slow down condiderably as the app grows. Also upgrading should be relatively easy. Requirements remain the same with one exception, we now require node for asset bundling. No worries if you don't have node, there is a solution to that
+Cette application s'adresse principalement aux :
+- **Écoles Maternelles, Primaires et Secondaires** souhaitant se moderniser.
+- **Lycées et Instituts d'Enseignement Supérieur** nécessitant une plateforme fiable pour les notes, les emplois du temps, et la gestion des paiements.
+- **Directeurs, Fondateurs et Administrateurs Scolaires** ayant pour but d'éliminer la paperasse, d'automatiser les tâches chronophages et de centraliser les bases de données de l'établissement.
 
-### Skuul is a multi school management system that aims to make school administration and activities a breeze by using the power of the internet and increased connectinity
+---
 
-## Requirements
-* Php 8.1 and above
-* Composer 
-* Since this project is running laravel 9, we suggest checking out the official requirements [here](https://laravel.com/docs/9.x/upgrade#updating-dependencies)
-* Npm
+## 🎭 Acteurs du Système et Leurs Fonctionnalités
 
-## Installation
-To skip steps 4 down ( after composer install ), you can run the below command and it would guide you through the process automatically
-```shell
-php artisan skuul:init
- ```
-* Clone the repository by running the following command in your comamand line below (Or you can dowload zip file from github)
-```shell
-git clone https://github.com/yungifez/skuul ./skuul
- ```
-* Head to the project's directory
-```shell
-cd skuul
- ```
-* Install composer dependancies
-```shell
+Le cœur de **Skuul** repose sur un contrôle d'accès basé sur les rôles (RBAC) extrêmement précis. L'application déploie 7 acteurs principaux disposant de fonctionnalités sur mesure.
+
+### 1. 👑 Le Super-Administrateur (Fondateur / Directeur Général)
+Il possède le plus haut niveau d'autorisation et contrôle l'infrastructure racine de l'application.
+* **Configuration Globale de l'École** : Paramétrage du profil de l'école (nom, logo, informations de contact).
+* **Supervision Systémique** : Gestion totale des autres administrateurs, blocage ou déblocage des comptes utilisateurs en un clic.
+* **Structuration Temporelle** : Création et définition des Années Académiques et configuration des Semestres (Trimestres/Semestres).
+
+### 2. 👨‍💼 L'Administrateur Scolaire (Secrétariat / Proviseur)
+Il est le moteur des opérations quotidiennes de l'école.
+* **Gestion des Utilisateurs** : Création, modification et suppression des profils (Enseignants, Élèves, Parents, Comptables).
+* **Structure Académique** : Création des Classes, affectation des Sections, et regroupement des niveaux (Class Groups).
+* **Admissions** : Traitement des candidatures (acceptation, rejet, ou mise en attente des postulants).
+* **Progression des Élèves** : Gestion cruciale des promotions en fin d'année scolaire, gestion des redoublements, et traitement des remises de diplômes (Graduations).
+* **Ingénierie du Curriculum** : Création des matières (Subjects) et affectation stratégique des enseignants à ces matières selon les classes.
+* **Communication Interne** : Création et diffusion de notes d'information (Notices) visibles sur les tableaux de bord des autres acteurs.
+
+### 3. 👩‍🏫 L'Enseignant (Professeur)
+Il est l'artisan de la pédagogie et de l'évaluation continue.
+* **Syllabus et Ressources** : Création et gestion du programme de cours (Syllabi) pour guider les élèves au fil du semestre.
+* **Gestion du Temps** : Consultation de son emploi du temps personnalisé (Timetables) et suivi des créneaux horaires attribués.
+* **Évaluations et Examens** :
+  * Création d'examens et définition des plages horaires d'évaluation (Exam Slots).
+  * Saisie rapide et sécurisée des notes des élèves (Exam Records).
+  * Génération instantanée des fiches de résultats (Tabulation Sheets) pour évaluer la performance globale de la classe.
+
+### 4. 👨‍👩‍👧 Le Parent d'Élève (Tuteur)
+Il est le garant de l'accompagnement éducatif et financier de l'enfant à domicile.
+* **Suivi Pédagogique** : Grâce au module "Result Checker", le parent peut consulter en direct les notes et bulletins de ses enfants rattachés, sans se déplacer à l'école.
+* **Transparence Financière** : Consultation des factures scolaires (Fee Invoices) et accès complet à l'historique des paiements de scolarité (Fee Invoice Records).
+* **Veille Informative** : Réception et lecture des notes d'information importantes envoyées par l'administration.
+
+### 5. 🧑‍🎓 L'Élève / Étudiant
+L'utilisateur au centre du processus éducatif.
+* **Environnement Académique** : Accès à son emploi du temps personnel, consultation du programme des matières (Syllabi), et visionnage de ses informations de classe.
+* **Résultats Sécurisés** : Vérification des notes d'examen et des relevés de fin de semestre via le module de consultation de résultats (Result Checker).
+* **Facturation** : Transparence sur sa situation financière grâce à la consultation de ses factures et des soldes restants à payer.
+
+### 6. 💵 Le Comptable (Administration Financière)
+Il est le pilier financier assurant la santé économique de l'établissement.
+* **Architecture Tarifaire** : Création et définition des différentes catégories de frais (ex: Inscription, Scolarité, Cantine, Transport).
+* **Facturation Automatisée** : Génération de factures (Fee Invoices) personnalisées par élève ou groupées par classe entière.
+* **Paiements et Recouvrements** : Enregistrement des paiements reçus (partiels ou complets), émission de reçus officiels, et suivi rigoureux des impayés.
+
+### 7. 📝 Le Postulant (Candidat)
+Un utilisateur externe souhaitant s'inscrire ou inscrire son enfant.
+* **Dossier de Candidature** : Soumission numérique de ses informations pour rejoindre l'établissement.
+* **Suivi de Dossier** : Accès à un tableau de bord restreint permettant uniquement de suivre le statut de son dossier (En cours, Approuvé, Rejeté).
+
+---
+
+## 🚀 Feuille de Route (Roadmap) : Pistes d'Améliorations Majeures
+
+Bien que Skuul soit déjà très complet, voici une vision ambitieuse pour rendre l'application encore plus incontournable. L'implémentation de ces fonctionnalités décuplera la valeur du système :
+
+### 🌟 Pour les Administrateurs :
+1. **Module de Ressources Humaines (RH) et Paie** : 
+   - Automatiser le calcul des salaires des professeurs et du staff administratif.
+   - Gérer les fiches de paie, les demandes de congés et le pointage numérique.
+2. **Tableau de Bord Analytique et Décisionnel (Business Intelligence)** :
+   - Intégrer des graphiques dynamiques (ex: Chart.js) pour visualiser l'évolution des effectifs, le taux de réussite global par matière, et les flux de trésorerie mensuels.
+3. **Gestion des Stocks et Actifs (Inventory Management)** :
+   - Tracer le matériel scolaire (ordinateurs, laboratoires, livres de la bibliothèque).
+
+### 🌟 Pour les Enseignants et la Pédagogie :
+1. **Devoirs et E-learning (LMS Intégré)** :
+   - Permettre aux professeurs de publier des devoirs en ligne que les élèves pourront rendre directement via la plateforme.
+2. **Appel Numérique (Suivi des Présences)** :
+   - Registre d'appel dématérialisé avec alerte SMS ou e-mail automatique envoyée aux parents en cas d'absence injustifiée.
+3. **Carnet de Correspondance / Discipline** :
+   - Consigner le comportement, les encouragements, les blâmes ou avertissements directement sur le dossier numérique de l'élève.
+
+### 🌟 Pour les Parents et les Élèves :
+1. **Passerelle de Paiement en Ligne** :
+   - Intégration de Stripe, PayPal ou de solutions Mobile Money (ex: Orange Money, Wave) pour payer la scolarité directement en ligne, depuis chez soi.
+2. **Messagerie Sécurisée (Chat Parent-Professeur)** :
+   - Un système de messagerie interne permettant aux parents et professeurs d'échanger sans partager leurs numéros de téléphone privés.
+3. **Notifications Push / Web** :
+   - Alertes en temps réel sur le navigateur ou le téléphone à chaque nouvelle note publiée, nouvel examen programmé, ou paiement enregistré.
+
+### 🌟 Améliorations Techniques du Système :
+1. **Application Mobile Compagnon (API REST)** :
+   - Développer l'API pour permettre la création d'une application mobile Skuul (Android & iOS).
+2. **Architecture Multi-Tenante (SaaS)** :
+   - Permettre à une seule instance du serveur de gérer simultanément des dizaines d'écoles différentes, ouvrant la voie à une commercialisation sous forme d'abonnement.
+
+---
+
+## 🛠️ Stack Technologique & Guide d'Installation
+
+- **Backend / Logique Serveur** : Laravel 10 (PHP 8.1+)
+- **Frontend / Réactivité** : Blade, Livewire 3, Alpine.js
+- **Design System** : Tailwind CSS (Thème moderne "Slate/Indigo", effet Glassmorphism, UI ultra soignée)
+- **Base de Données** : MySQL (ou MariaDB)
+
+### 💻 Installation Rapide (Environnement de Développement)
+
+Ouvrez votre terminal et suivez ces instructions pour lancer le projet :
+
+```bash
+# 1. Cloner le projet depuis GitHub
+git clone https://github.com/yungifez/skuul.git
+
+# 2. Installer les dépendances backend et frontend
 composer install
-```
-* Copy .env.example file into .env file and configure based on your environment
-```shell
-cp .env.example .env
-```
-* Install node dependencies
-```shell
 npm install
-```
-* Build NPM assets
-```shell
-  npm run build
-```
 
-Note if you do not have node, you can do this in your local environment and using an ftp program upload the publi/build folder and manifest.json folder to your server
-* Generate encryption key
-```shell
+# 3. Préparer l'environnement
+cp .env.example .env
 php artisan key:generate
-```
-* Migrate the database
-```shell
+
+# 4. Configurer la base de données (Assurez-vous que MySQL est actif et éditez le .env)
 php artisan migrate
-```
-* Seed database 
-    
-    You can seed the database in 2 ways
-    - For production ie in your live server
-        ```shell
-        php artisan db:seed --class RunInProductionSeeder
-        ```
-    - For testing or development purposes
-        ```shell
-        php artisan db:seed
-        ```
-* Seed database to populate countries (takes approximately 10 minutes)
-```shell
+# Remplir la base avec les pays, villes et états (prend quelques minutes)
 php artisan db:seed --class=WorldSeeder
-```
-* Set application logo by adding it in the public img folder and edit the .env logo path appropriately
-* Store favicon in path public/favicons/, the file should be called favicon.ico
-* For development or testing purposes, you can use the laravel built in server by running 
-```shell
+# Insérer les rôles, les paramètres par défaut et les faux utilisateurs pour tester
+php artisan db:seed 
+
+# 5. Démarrer les serveurs locaux
 php artisan serve
+npm run dev
 ```
-If you are running on production, visit your domain to verify it is working 
 
-After running the above commands, you should be able to access the application at http::/localhost or your designated domain name depending on configuration.
+Une fois les serveurs lancés, ouvrez votre navigateur et accédez à l'application via `http://localhost:8000`.
 
-## Updating
-Typically, you can update most of the time following these steps
-- clone the new version
-- composer update
-- php artisan optimize:clear
-- php artisan migrate (Make sure to backup database)
-- php artisan db:seed --class RunInProductionSeeder
-## Setup
-* Log in to the application with the following credentials
-    * Email: super@admin.com
-    * Password: password
-
-* You would be prompted to change your password, change your passsword in the profile page to continue
-
-    
-* if you are on production 
-    - When you log in, you would be redirected to a page with error message at the top right corner that says "Please set your school of operation first". At the menu, click on create schools
-    - On the page to create schools, provide a name, address and initial for your school and click on create school
-    - Click on view schools, select the current school and click on the button set scvhool
-    - You can now head over to the dashboard
-    - You can begin to add classes, students, teachers etc. Some operations would not work specifically all links under the academics section
-    - Head over to academic years, create a new academic year and a new semester then set the academic year and semester 
-* if you are on dev or testing, data is preset to test and use the application.
-
-## Usage
-* Add class groups to the school
-* Add classes to class groups
-* Add sections to classes
-* Add students to sections (You must have created a class and a section before you can add students)
-* Add teachers to school
-* Add subjects to school
-
-## Features
-### Super Admin
-By default super admin can manage all activities in each school, some super admin exclusive features are
-* Ability to create, edit and delete schools
-" Ability to set school of operation
-
-### Admin
-* Ability to manage own school settings
-* Ability to create, edit, view and delete class groups in assigned school
-* Ability to create, edit, view and delete classes 
-* Ability to create, edit, view and delete sections
-* Ability to create, edit, view and delete classes
-* Ability to create, edit, view and delete subjects
-* Ability to create, edit, view and delete academic years
-* Ability to set Academic years
-* Ability to admit students, view student profiles, edit student profile, print student profile and delete student
-* Ability to create teachers, edit teacher profile and delete teacher
-* Ability to create, edit, manage, view and delete timetables
-* Ability to create, edit, view and delete sylabii
-* Ability to create, edit, view and delete semester
-* Ability to set own school academic year and semester
-
-### Teachers
-* Ability to create, edit, view and delete sylabii
-* Ability to create, edit, manage, view and delete timetables
-
-This project was highly inspired by 4jean/lavSMS
-
-Do you like the current state of this project?, you can support me or hire me for work
-
-Todo
-- Create demo site (for now, go to yungifez.xyz might be a mess but worth it. Log in to super admin account with password helloworld)
-- Create logo
-- Need help creating demo video
-- Write docs using a tool like larecipe
-- Write issue and contribution template file
-etc
-
-
-
-
+*Ce projet est maintenu avec passion pour révolutionner la gestion scolaire de demain.*
+#   e d u f l o w  
+ 

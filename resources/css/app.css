@@ -1,37 +1,71 @@
 @import "@fortawesome/fontawesome-free/css/all.css";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer components{
-    .beautify-scrollbar::-webkit-scrollbar{
-        width: 5px;
-        height: 5px;
-        background-color: rgba(0, 0, 0, 0);
+@layer base {
+    body {
+        font-family: 'Inter', sans-serif;
+        @apply bg-slate-50 text-slate-800 antialiased selection:bg-indigo-500 selection:text-white transition-colors duration-300;
+    }
+    
+    body.dark {
+        @apply bg-slate-900 text-slate-100;
     }
 
-    .beautify-scrollbar::-webkit-scrollbar-corner{
-            background-color: transparent;
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Plus Jakarta Sans', sans-serif;
     }
-    .beautify-scrollbar::-webkit-scrollbar-thumb{
-        background-color: rgba(126, 143, 151, 0.5);
+}
+
+@layer utilities {
+    .glass {
+        @apply bg-white/70 dark:bg-slate-800/70 backdrop-blur-md border border-white/20 dark:border-slate-700/50 shadow-sm;
+    }
+}
+
+@layer components {
+    .beautify-scrollbar::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+        background-color: transparent;
+    }
+
+    .beautify-scrollbar::-webkit-scrollbar-corner {
+        background-color: transparent;
+    }
+
+    .beautify-scrollbar::-webkit-scrollbar-thumb {
+        @apply bg-slate-300 dark:bg-slate-600 rounded-full;
+    }
+    
+    .beautify-scrollbar::-webkit-scrollbar-thumb:hover {
+        @apply bg-slate-400 dark:bg-slate-500;
     }
 
     .card {
-        @apply  bg-white dark:bg-gray-800 rounded shadow border my-6
+        @apply bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 my-6 transition-shadow duration-300 hover:shadow-md;
     }
 
     .card-header {
-        @apply px-4 md:px-7 py-2 border-b
+        @apply px-5 md:px-8 py-4 border-b border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/50 rounded-t-xl;
     }
 
     .card-body {
-        @apply px-4 md:px-7 py-7
+        @apply px-5 md:px-8 py-6;
     }
 
     .card-title {
-        @apply md:text-lg capitalize font-semibold
+        @apply md:text-xl capitalize font-semibold text-slate-800 dark:text-slate-100 tracking-tight;
     }
-
+    
+    .btn-primary {
+        @apply inline-flex items-center justify-center px-4 py-2 bg-indigo-600 border border-transparent rounded-lg font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 active:bg-indigo-800 transition-all shadow-sm;
+    }
+    
+    .form-input {
+        @apply block w-full rounded-lg border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm transition-colors;
+    }
 }

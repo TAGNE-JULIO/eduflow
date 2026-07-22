@@ -17,6 +17,12 @@ class Menu extends Component
                 'text'  => 'Dashboard',
                 'route' => 'dashboard',
             ],
+            [
+                'type'  => 'menu-item',
+                'icon'  => 'fas fa-envelope',
+                'text'  => 'Messages',
+                'route' => 'messages.index',
+            ],
             ['header' => 'Manage Profile'],
             [
                 'type'  => 'menu-item',
@@ -340,6 +346,30 @@ class Menu extends Component
                 ],
             ],
             ['header' => 'Academics', 'can' => 'header-academics'],
+            [
+                'type'  => 'menu-item',
+                'text'  => 'Attendance',
+                'icon'  => 'fas fa-calendar-check',
+                'route' => 'attendance.index',
+            ],
+            [
+                'type'  => 'menu-item',
+                'text'  => 'Discipline',
+                'icon'  => 'fas fa-balance-scale',
+                'route' => 'disciplinary.index',
+            ],
+            [
+                'type'  => 'menu-item',
+                'text'  => 'Assignments',
+                'icon'  => 'fas fa-tasks',
+                'route' => 'assignments.index',
+            ],
+            [
+                'type'  => 'menu-item',
+                'text'  => 'Study Materials',
+                'icon'  => 'fas fa-book-reader',
+                'route' => 'study-materials.index',
+            ],
             [
                 'type'    => 'menu-item',
                 'text'    => 'Notices',

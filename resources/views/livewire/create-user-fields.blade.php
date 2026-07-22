@@ -6,8 +6,8 @@
         </p>
     </div>
     <div x-data="showImage()" class="col-span-12">
-        <img id="profile-picture" src="{{asset('application-images/user-profile-image.png')}}" alt="Profile Picture" class="w-64 h-64 rounded-full profile-image mx-auto block border border-black dark:border-white shadow" >
-        <x-input type="file" id="profile-image-selector"  name="profile_photo" class="hidden" label="Select Profile image" label-class="border p-2 bg-blue-700 hover:bg-blue-800 active:bg-blue-900 w-72 text-center m-auto rounded text-white"   @change="showPreview(event)" accept="image/*" />
+        <img id="profile-picture" src="{{asset('application-images/user-profile-image.png')}}" alt="Profile Picture" class="w-64 h-64 rounded-full profile-image mx-auto block border-4 border-white dark:border-slate-800 shadow-xl ring-4 ring-slate-100 dark:ring-slate-700/50 object-cover" >
+        <x-input type="file" id="profile-image-selector"  name="profile_photo" class="hidden" label="Select Profile image" label-class="btn-primary py-2 px-6 rounded-lg text-sm text-center mx-auto mt-6 block cursor-pointer transition-transform hover:-translate-y-0.5 w-64"   @change="showPreview(event)" accept="image/*" />
     </div>
     <x-input name="first_name" id="first-name" label="First name *" placeholder="{{$role}}'s first name" group-class="col-span-3" />
     <x-input name="last_name" id="last-name" label="Last name *" placeholder="{{$role}}'s last name" group-class="col-span-3" />

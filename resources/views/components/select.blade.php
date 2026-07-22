@@ -1,9 +1,9 @@
-<div class="{{$groupClass}} my-2 flex flex-col"  x-data="{'oldValue' : '{{old($name) ?? null }}'}">
+<div class="{{$groupClass}} mb-4 flex flex-col"  x-data="{'oldValue' : '{{old($name) ?? null }}'}">
     @isset($label) 
-    <label for="{{$id}}" class="my-3 font-semibold text-gray-700 dark:text-gray-50">{{$label}}</label>
+    <label for="{{$id}}" class="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300">{{$label}}</label>
     @endisset
     @if (!$attributes->has('multiple'))
-        <select name="{{$name}}" id="{{$id}}" @class(["$class p-2 border border-gray-400 focus:border-blue-500 bg-inherit dark:bg-gray-800", 'border-red-500' => $errors->has($name)]) {{$attributes}} @if(old($name) != null) x-model="oldValue" @endif x-init="oldValue !== '' && $dispatch('change', oldValue)">
+        <select name="{{$name}}" id="{{$id}}" @class(["$class block w-full rounded-lg border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500/20 sm:text-sm transition-colors", 'border-red-500 focus:border-red-500 focus:ring-red-500/20' => $errors->has($name)]) {{$attributes}} @if(old($name) != null) x-model="oldValue" @endif x-init="oldValue !== '' && $dispatch('change', oldValue)">
             {{$slot}}
         </select>
     @else
@@ -20,12 +20,12 @@
                 </div>
                     <div class="flex flex-col items-center relative w-full">
                         <div x-on:click="open" class="w-full">
-                            <div class="my-2 p-1 flex border border-gray-400 focus:border-blue-500 bg-white dark:bg-gray-800 rounded">
+                            <div class="my-1 p-1 flex border border-slate-300 dark:border-slate-600 focus:border-indigo-500 focus:ring focus:ring-indigo-500/20 bg-white dark:bg-slate-900 rounded-lg shadow-sm sm:text-sm transition-colors">
                                 {{--display selected items--}}
                                 <div class="flex flex-auto flex-wrap">
                                     <template x-for="(option,index) in selected" :key="options[option].value">
-                                        <div class="flex justify-center items-center m-1 font-medium py-1 px-2  rounded-full text-inherit bg-inherit border border-gray-400 ">
-                                            <div class="text-xs font-normal leading-none max-w-full flex-initial x-model="options[option]" x-text="options[option].text"></div>
+                                        <div class="flex justify-center items-center m-1 font-medium py-1 px-2 rounded-full text-indigo-700 bg-indigo-100 dark:bg-indigo-900/50 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 ">
+                                            <div class="text-xs font-normal leading-none max-w-full flex-initial" x-model="options[option]" x-text="options[option].text"></div>
                                             <div class="flex flex-auto flex-row-reverse">
                                                 <button x-on:click="remove(index,option)">
                                                     <i class="fa fa-x mx-2 "></i>
@@ -36,28 +36,29 @@
                                     {{--display when no items are selected --}}
                                     <div x-show="selected.length  == 0" class="flex-1">
                                         <input disabled placeholder="{{$attributes->get('placeholder') ?? "Select Options"}}"
-                                        class="bg-transparent p-1 px-2 appearance-none outline-none h-full w-full text-gray-800" :value="selectedValues()">
+                                        class="bg-transparent p-1 px-2 appearance-none outline-none h-full w-full text-slate-700 dark:text-slate-300" :value="selectedValues()">
                                     </div>
                                 </div>
-                            <div class="text-gray-300 w-8 py-1 pl-2 pr-1 border-l flex items-center border-gray-400 svelte-1l8159u">
-                                <button type="button" x-show="isOpen() === true" x-on:click="open" class="cursor-pointer w-6 h-6 text-gray-600 outline-none focus:outline-none">
+                            <div class="text-slate-300 w-8 py-1 pl-2 pr-1 border-l flex items-center border-slate-300 dark:border-slate-600 svelte-1l8159u">
+                                <button type="button" x-show="isOpen() === true" x-on:click="open" class="cursor-pointer w-6 h-6 text-slate-600 dark:text-slate-400 outline-none focus:outline-none hover:text-indigo-500">
                                     <i class="fa fa-angle-up" aria-hidden="true"></i>
                                 </button>
-                                <button type="button" x-show="isOpen() === false" @click="close" class="cursor-pointer w-6 h-6 text-gray-600 outline-none focus:outline-none">
+                                </button>
+                                <button type="button" x-show="isOpen() === false" @click="close" class="cursor-pointer w-6 h-6 text-slate-600 dark:text-slate-400 outline-none focus:outline-none hover:text-indigo-500">
                                     <i class="fa fa-angle-down" aria-hidden="true"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
                     <div class="w-full">
-                        <div x-show.transition.origin.top="isOpen()" class="absolute shadow top-100 bg-white dark:bg-gray-800 z-30 w-full rounded border max-h-60 overflow-y-scroll beautify-scrollbar" x-on:click.away="close">
+                        <div x-show.transition.origin.top="isOpen()" class="absolute shadow-lg top-100 bg-white dark:bg-slate-800 z-30 w-full rounded-xl border border-slate-200 dark:border-slate-700 max-h-60 overflow-y-auto beautify-scrollbar mt-1" x-on:click.away="close">
                             <div class="flex flex-col w-full">
                                 <template x-for="(option,index) in options" :key="index">
                                     <div>
-                                        <div class="cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-gray-500 hover:text-white bg-opacity-25" @click="select(index,$event)">
-                                            <div :class="(option.selected) ? 'bg-blue-300 dark:bg-blue-600' : ''" class="flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative">
+                                        <div class="cursor-pointer w-full hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors" @click="select(index,$event)">
+                                            <div :class="(option.selected) ? 'bg-indigo-50 dark:bg-indigo-900/30 border-indigo-500' : 'border-transparent'" class="flex w-full items-center p-2 pl-2 border-l-2 relative">
                                                 <div class="w-full items-center flex">
-                                                    <div class="mx-2 leading-6" x-model="option" x-text="option.text"></div>
+                                                    <div class="mx-2 leading-6 text-slate-700 dark:text-slate-300" x-model="option" x-text="option.text"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -70,7 +71,7 @@
         </div>
     @endif
     @error($name)
-        <p class="text-red-700 my-2">{{$message}}</p>
+        <p class="text-red-600 dark:text-red-400 text-xs mt-1">{{$message}}</p>
     @enderror
 
     <script>

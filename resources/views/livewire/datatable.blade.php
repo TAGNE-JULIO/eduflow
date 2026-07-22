@@ -1,34 +1,37 @@
 <div>
     <x-loading-spinner/>
-    <div class="flex flex-col md:flex-row gap-4 items-center">
-        <div class="flex gap-4 items-center overflow-scroll beautify-scrollbar">
-            <label for="datatable-search-{{$uniqueId}}">Search</label>
-            <input id="datatable-search-{{$uniqueId}}" type="search" wire:model.live.sebounce.500ms="search" class="border-gray-500 dark:bg-inherit border rounded px-4 py-1 md:py-2">
+    <div class="flex flex-col md:flex-row gap-4 justify-between items-center bg-white dark:bg-slate-800 p-4 rounded-t-xl border-b border-slate-200 dark:border-slate-700">
+        <div class="flex gap-4 items-center w-full md:w-auto relative">
+            <i class="fa fa-search absolute left-3 text-slate-400" aria-hidden="true"></i>
+            <input id="datatable-search-{{$uniqueId}}" type="search" wire:model.live.debounce.500ms="search" placeholder="Search..." class="form-input pl-10 pr-4 py-2 w-full md:w-64">
         </div>
-        <select class="bg-white dark:bg-gray-800 px-4 py-2 border border-gray-500 rounded" wire:model.live="perPage">
-            @foreach ([5,10,20,25,100] as $item)
-                <option value="{{$item}}" class="bg-inherit">{{$item}}</option>
-            @endforeach
-        </select>
+        <div class="flex items-center gap-3 w-full md:w-auto justify-end">
+            <span class="text-sm text-slate-500 dark:text-slate-400">Show</span>
+            <select class="form-input py-2 pl-3 pr-8" wire:model.live="perPage">
+                @foreach ([5,10,20,25,100] as $item)
+                    <option value="{{$item}}">{{$item}}</option>
+                @endforeach
+            </select>
+        </div>
     </div>
-    <div class="overflow-x-scroll beautify-scrollbar" >
-        <table class="border w-full my-4 table-auto">
-            <thead class="border text-center bg-gray-900 dark:bg-white dark:bg-opacity-20 text-white">
-                <th class="p-4">S/N</th>
+    <div class="overflow-x-scroll beautify-scrollbar bg-white dark:bg-slate-800 rounded-b-xl shadow-sm" >
+        <table class="w-full text-sm text-left text-slate-500 dark:text-slate-400">
+            <thead class="text-xs text-slate-700 uppercase bg-slate-50 dark:bg-slate-700/50 dark:text-slate-300">
+                <th class="px-6 py-4 font-semibold">S/N</th>
                 @foreach ($columns as $column)
                     @if (!isset($column['can']) || auth()->user()->can($column['can']))
-                        <th class="capitalize p-4 border whitespace-nowrap">{{str_replace('_' , ' ', Str::snake( $column['name'] ??  $column['property']))}}</th>
+                        <th class="px-6 py-4 font-semibold capitalize whitespace-nowrap">{{str_replace('_' , ' ', Str::snake( $column['name'] ??  $column['property']))}}</th>
                     @endif
                 @endforeach
             </thead>
-            <tbody class="">
+            <tbody>
                 @if ($collection->isNotEmpty())
                     @foreach ($collection as $item)
-                        <tr class="border odd:bg-white even:bg-slate-100 dark:odd:bg-inherit dark:even:bg-white dark:even:bg-opacity-5">
-                            <th class="border w-24">{{ $collection->perPage() * ($collection->currentPage() - 1) + $loop->iteration }}</th>
+                        <tr class="bg-white border-b dark:bg-slate-800 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
+                            <th class="px-6 py-4 font-medium text-slate-900 dark:text-white whitespace-nowrap">{{ $collection->perPage() * ($collection->currentPage() - 1) + $loop->iteration }}</th>
                             @foreach ($columns as $column)
                                 @if (!isset($column['can']) || auth()->user()->can($column['can']))
-                                    <td class="p-4 border w-60 whitespace-nowrap">
+                                    <td class="px-6 py-4 whitespace-nowrap">
                                         @php 
                                             $model = $item;
                                             if (isset($column['relation'])) {
@@ -99,8 +102,13 @@
                         </tr>
                     @endforeach
                 @else
-                    <tr>
-                        <td class="p-4 capitalize text-center" colspan="100%">No data to Show</td>
+                    <tr class="bg-white dark:bg-slate-800">
+                        <td class="px-6 py-8 text-center text-slate-500 dark:text-slate-400" colspan="100%">
+                            <div class="flex flex-col items-center justify-center">
+                                <i class="fa fa-inbox text-4xl mb-3 text-slate-300 dark:text-slate-600" aria-hidden="true"></i>
+                                <p class="text-base font-medium">No data found</p>
+                            </div>
+                        </td>
                     </tr>
                 @endif
             </tbody>

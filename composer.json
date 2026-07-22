@@ -1,5 +1,5 @@
 {
-    "name": "yungifez/skuul",
+    "name": "yungifez/eduflow",
     "type": "project",
     "description": "A multi school management system.",
     "keywords": [
@@ -17,12 +17,14 @@
         "laravel/jetstream": "^4.0",
         "laravel/prompts": "^0.1.6",
         "laravel/sanctum": "^3.2",
-        "laravel/tinker": "^2.8",
+        "laravel/tinker": "2.9",
         "livewire/livewire": "^3.0",
         "nnjeim/world": "^1.1",
         "opcodesio/log-viewer": "^3.1.1",
+        "psy/psysh": "0.12",
         "spatie/laravel-model-status": "^1.11",
-        "spatie/laravel-permission": "^5.5"
+        "spatie/laravel-permission": "^5.5",
+        "stripe/stripe-php": "^20.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",
@@ -74,7 +76,10 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "audit": {
+            "block-insecure": false
+        }
     },
     "minimum-stability": "stable",
     "prefer-stable": true

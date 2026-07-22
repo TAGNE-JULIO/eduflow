@@ -90,6 +90,8 @@ class FeeInvoiceRecordService
             'paid' => $newAmount,
         ]);
 
+        $feeInvoiceRecord->feeInvoice->user->notify(new \App\Notifications\FeePaidNotification($pay->getAmount()->toFloat(), $feeInvoiceRecord->fee->name, $feeInvoiceRecord->feeInvoice->name));
+
         return $feeInvoiceRecord;
     }
 

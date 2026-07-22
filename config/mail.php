@@ -91,12 +91,12 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@skuul.test'),
+        'address' => env('MAIL_FROM_ADDRESS', 'hello@eduflow.test'),
         'name'    => env('MAIL_FROM_NAME', 'Example'),
     ],
 
     'reply_to' => [
-        'address' => env('MAIL_REPLY_ADDRESS', 'contact@skuul.test'),
+        'address' => env('MAIL_REPLY_ADDRESS', 'contact@eduflow.test'),
         'name'    => env('MAIL_REPLY_NAME', env('APP_NAME')),
     ],
 

@@ -23,6 +23,10 @@ class DashboardDataCards extends Component
 
     public $parents;
 
+    public $assignments;
+
+    public $studyMaterials;
+
     public function mount(SectionService $sectionService)
     {
         $this->schools = School::count();
@@ -32,6 +36,8 @@ class DashboardDataCards extends Component
         $this->students = User::inSchool()->students()->activeStudents()->count();
         $this->teachers = User::inSchool()->role('teacher')->count();
         $this->parents = User::inSchool()->role('parent')->count();
+        $this->assignments = \App\Models\Assignment::count();
+        $this->studyMaterials = \App\Models\StudyMaterial::count();
     }
 
     public function render()

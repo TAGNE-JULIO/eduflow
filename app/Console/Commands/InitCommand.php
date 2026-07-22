@@ -16,14 +16,14 @@ class InitCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'skuul:init';
+    protected $signature = 'eduflow:init';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Install Skuul';
+    protected $description = 'Install EduFlow';
 
     /**
      * No of attempts to be made to connect to the
@@ -128,7 +128,7 @@ class InitCommand extends Command
     {
         $this->line("Set up your app's environment details");
         $this->env = $this->choice(
-            'What environment are you installing skuul on?',
+            'What environment are you installing EduFlow on?',
             ['local', 'production'],
             $this->env
         );
@@ -266,12 +266,12 @@ class InitCommand extends Command
         $this->line('Creating super admin account');
         switch ($this->env) {
             case 'local':
-                $this->info('Since you are trying out skuul locally, we have already created a super admin account for you. Check the docs on what these credentials are if unsure');
+                $this->info('Since you are trying out EduFlow locally, we have already created a super admin account for you. Check the docs on what these credentials are if unsure');
                 break;
             default:
-                $this->info('If you choose to not create a super admin now for some reason, you cen do so late by running php artisan skuul:create-super-admin');
+                $this->info('If you choose to not create a super admin now for some reason, you cen do so late by running php artisan eduflow:create-super-admin');
                 if ($this->confirm('Do you wish to create a super admin account now?', true)) {
-                    $this->call('skuul:create-super-admin');
+                    $this->call('eduflow:create-super-admin');
                 } else {
                     $this->line('skipping...');
                 }

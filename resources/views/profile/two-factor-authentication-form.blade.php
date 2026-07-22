@@ -36,7 +36,7 @@
                     {{ __('Store these recovery codes in a secure password manager. They can be used to recover access to your account if your two factor authentication device is lost.') }}
                 </p>
 
-                <div class="dark:bg-gray-500 bg-gray-100 my-2 rounded p-3">
+                <div class="dark:bg-slate-500 bg-slate-100 my-2 rounded p-3">
                     @foreach (json_decode(decrypt($this->user->two_factor_recovery_codes), true) as $code)
                         <div>{{ $code }}</div>
                     @endforeach
@@ -47,7 +47,7 @@
         <div class="mt-3">
             @if (! $this->enabled)
                 <x-confirms-password wire:then="enableTwoFactorAuthentication">
-                    <x-button type="button" wire:loading.attr="disabled" class="bg-gray-500 w-3/12">
+                    <x-button type="button" wire:loading.attr="disabled" class="bg-slate-500 w-3/12">
                         {{ __('Enable') }}
                     </x-button>
                 </x-confirms-password>

@@ -16,7 +16,12 @@
                 </div>
                 <p x-text="'Due: ' + (amount - waiver + fine - paid - payment_amount).toLocaleString()" class="md:place-self-center"></p>
                 <input type="hidden" value="{{$record->fee->id}}">
-                <x-button label="Add Payment" class="self-" icon="fas fa-money-check-alt"/>
+                <div class="flex flex-col gap-2 w-full">
+                    <x-button label="Cash Payment" class="w-full justify-center" icon="fas fa-money-bill-wave"/>
+                    <button type="submit" formaction="{{route('fee-invoices-records.stripe-pay', $record->id)}}" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded inline-flex items-center justify-center text-sm w-full transition duration-150 ease-in-out">
+                        <i class="fab fa-cc-stripe mr-2 text-lg"></i> Pay via Stripe
+                    </button>
+                </div>
                 @csrf
             </form>
         @endforeach

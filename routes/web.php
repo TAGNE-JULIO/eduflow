@@ -40,10 +40,14 @@ Route::middleware('auth:sanctum', 'verified', 'App\Http\Middleware\PreventLockAc
 
     //super admin must have school id set
     Route::middleware(['App\Http\Middleware\EnsureSuperAdminHasSchoolId'])->group(function () {
-        //dashboard route
         Route::get('/', function () {
             return view('dashboard');
         })->name('dashboard')->withoutMiddleware(['App\Http\Middleware\PreventGraduatedStudent']);
+
+        Route::post('/notifications/mark-as-read', function () {
+            auth()->user()->unreadNotifications->markAsRead();
+            return back();
+        })->name('notifications.mark-as-read');
 
         //class routes
         Route::resource('classes', MyClassController::class);
@@ -89,6 +93,9 @@ Route::middleware('auth:sanctum', 'verified', 'App\Http\Middleware\PreventLockAc
 
                 //fee invoice record routes
                 Route::post('fees/fee-invoices/fee-invoice-records/{fee_invoice_record}/pay', ['App\Http\Controllers\FeeInvoiceRecordController', 'pay'])->name('fee-invoices-records.pay');
+                Route::post('fees/fee-invoices/fee-invoice-records/{fee_invoice_record}/stripe-pay', ['App\Http\Controllers\FeeInvoiceRecordController', 'stripePay'])->name('fee-invoices-records.stripe-pay');
+                Route::get('fees/fee-invoices/fee-invoice-records/stripe-success', ['App\Http\Controllers\FeeInvoiceRecordController', 'stripeSuccess'])->name('fee-invoices-records.stripe-success');
+                Route::get('fees/fee-invoices/fee-invoice-records/stripe-cancel', ['App\Http\Controllers\FeeInvoiceRecordController', 'stripeCancel'])->name('fee-invoices-records.stripe-cancel');
                 Route::resource('fees/fee-invoices/fee-invoice-records', FeeInvoiceRecordController::class);
 
                 //fee incvoice routes
@@ -142,6 +149,21 @@ Route::middleware('auth:sanctum', 'verified', 'App\Http\Middleware\PreventLockAc
 
                 //grade system routes
                 Route::resource('grade-systems', GradeSystemController::class);
+
+                // Attendance route
+                Route::get('attendance', [\App\Http\Controllers\AttendanceController::class, 'index'])->name('attendance.index');
+
+                // Disciplinary records route
+                Route::get('disciplinary-records', [\App\Http\Controllers\DisciplinaryRecordController::class, 'index'])->name('disciplinary.index');
+
+                // Assignments route
+                Route::get('/assignments', "\\App\\Livewire\\ManageAssignments")->name('assignments.index');
+                
+                // Study Materials route
+                Route::get('/study-materials', "\\App\\Livewire\\ManageStudyMaterials")->name('study-materials.index');
+
+                // Messaging
+                Route::get('/messages', "\\App\\Livewire\\ManageMessages")->name('messages.index');
             });
         });
 

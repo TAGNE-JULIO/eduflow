@@ -1,4 +1,4 @@
-@props(['backgroundColour' =>  'bg-blue-700', 'textColour' => 'text-white','title' => '', 'footer' => '', 'icon' => '', 'buttonText' => 'Delete', 'button', 'size' => 'base', 'modalButtonClass' => ''])
+@props(['backgroundColour' =>  'bg-indigo-700', 'textColour' => 'text-white','title' => '', 'footer' => '', 'icon' => '', 'buttonText' => 'Delete', 'button', 'size' => 'base', 'modalButtonClass' => ''])
 
 <div x-data="{modal : false}" class="{{$textColour}}">
     
@@ -24,7 +24,7 @@
     @endphp
 
     <div class=" w-screen h-screen fixed inset-0 z-50 bg-black bg-opacity-70 flex items-center justify-center" @click="modal = false" x-show="modal" style="display: none" x-transition {{$attributes}}>
-        <div class="{{$sizeClass}} flex justify-between flex-col bg-white dark:bg-gray-900 rounded-xl border" @click.stop>
+        <div class="{{$sizeClass}} flex justify-between flex-col bg-white dark:bg-slate-900 rounded-xl border" @click.stop>
             <div class="{{$backgroundColour}} h-16 md:h-20 rounded-t-xl flex justify-between  items-center p-4">
                 <div class="flex gap-4 overflow-y-scroll beautify-scrollbar">
                     <i class="{{$icon}} text-2xl" aria-hidden="true" ></i>
@@ -38,7 +38,7 @@
                 {{$slot}}
             </div>
             <div class="border-t h-16 md:h-20 flex justify-between items-center p-4">
-                <x-button label="Close" class="bg-gray-600 text-white" @click="modal = false"/>
+                <x-button label="Close" class="bg-slate-600 text-white" @click="modal = false"/>
                 <div>
                     {{$footer}}
                 </div>
