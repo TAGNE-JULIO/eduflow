@@ -4,7 +4,7 @@
         <!-- Upcoming Assignments -->
         <div class="col-span-1 md:col-span-2 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
             <h3 class="text-lg font-bold text-slate-800 dark:text-white mb-4 flex items-center">
-                <i class="fas fa-tasks text-indigo-500 mr-2"></i> Upcoming Assignments
+                <i class="fas fa-tasks text-indigo-500 mr-2"></i> {{ __('Upcoming Assignments') }}
             </h3>
             @if(count($assignments) > 0)
                 <div class="space-y-4">
@@ -14,13 +14,13 @@
                                 <div class="flex justify-between items-start mb-1">
                                     <h4 class="font-semibold text-slate-900 dark:text-white">{{ $assignment->title }}</h4>
                                     <span class="text-xs font-medium px-2.5 py-0.5 rounded {{ \Carbon\Carbon::parse($assignment->due_date)->isToday() ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300' : 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-300' }}">
-                                        Due: {{ \Carbon\Carbon::parse($assignment->due_date)->format('M d, Y') }}
+                                        {{ __('Due:') }} {{ \Carbon\Carbon::parse($assignment->due_date)->format('M d, Y') }}
                                     </span>
                                 </div>
-                                <p class="text-sm text-slate-500 dark:text-slate-400 mb-2">Subject: {{ $assignment->subject->name ?? 'N/A' }}</p>
+                                <p class="text-sm text-slate-500 dark:text-slate-400 mb-2">{{ __('Subject:') }} {{ $assignment->subject->name ?? __('N/A') }}</p>
                                 @if($assignment->file_path)
                                     <a href="{{ asset('storage/' . $assignment->file_path) }}" target="_blank" class="text-sm text-indigo-600 dark:text-indigo-400 hover:underline">
-                                        <i class="fas fa-paperclip mr-1"></i> View Attachment
+                                        <i class="fas fa-paperclip mr-1"></i> {{ __('View Attachment') }}
                                     </a>
                                 @endif
                             </div>
@@ -30,7 +30,7 @@
             @else
                 <div class="text-center py-6 text-slate-500 dark:text-slate-400">
                     <i class="fas fa-check-circle text-4xl mb-3 text-green-400"></i>
-                    <p>No upcoming assignments. Great job!</p>
+                    <p>{{ __('No upcoming assignments. Great job!') }}</p>
                 </div>
             @endif
         </div>
@@ -40,7 +40,7 @@
             <!-- Recent Absences -->
             <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
                 <h3 class="text-lg font-bold text-slate-800 dark:text-white mb-4 flex items-center">
-                    <i class="fas fa-calendar-times text-red-500 mr-2"></i> Recent Absences / Lates
+                    <i class="fas fa-calendar-times text-red-500 mr-2"></i> {{ __('Recent Absences / Lates') }}
                 </h3>
                 @if(count($absences) > 0)
                     <ul class="space-y-3">
@@ -54,7 +54,7 @@
                         @endforeach
                     </ul>
                 @else
-                    <p class="text-sm text-slate-500 dark:text-slate-400 text-center py-4">Perfect attendance recently!</p>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 text-center py-4">{{ __('Perfect attendance recently!') }}</p>
                 @endif
             </div>
 
