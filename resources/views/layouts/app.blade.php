@@ -24,10 +24,10 @@
         </a>
         <div x-data="{ menuOpen: window.innerWidth >=  1024 ? $persist(false) : false }">
             <livewire:layouts.header/>
-            <div class="lg:flex lg:flex-cols text-slate-900 bg-slate-50 dark:bg-slate-900 dark:text-slate-50 min-h-screen" >
+            <div class="lg:flex lg:flex-cols text-slate-900 bg-transparent dark:text-slate-50 min-h-screen" >
                 <livewire:layouts.menu />
                 <div class="w-full max-w-full overflow-x-hidden overflow-y-auto beautify-scrollbar flex flex-col h-screen">
-                    <div class="glass px-6 py-4 w-full z-10 sticky top-0">
+                    <div class="glass px-6 py-4 w-full z-10 sticky top-0 border-b-0">
                         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                             <div>
                                 <h1 class="text-2xl font-bold tracking-tight text-slate-800 dark:text-slate-100 capitalize">@yield('page_heading')</h1>
@@ -42,8 +42,8 @@
                             </div>
                         </div>
                     </div>
-                    <main class="flex-1 p-6 min-w-0" id="main">
-                        <div class="max-w-7xl mx-auto w-full min-w-0">
+                    <main class="flex-1 p-6 lg:p-8 min-w-0" id="main">
+                        <div class="max-w-7xl mx-auto w-full min-w-0 fade-in">
                             @yield('content') 
                         </div>
                     </main>
@@ -51,6 +51,7 @@
             </div>
         </div> 
     @livewire('display-status')
+    <livewire:quick-search />
     </body>
     <livewire:scripts />
     @stack('scripts')

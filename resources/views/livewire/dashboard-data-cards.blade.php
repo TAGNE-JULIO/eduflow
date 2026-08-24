@@ -1,4 +1,45 @@
 <div>
+    <!-- Quick Actions Banner -->
+    <div class="mb-6 p-6 glass rounded-2xl border border-white/40 dark:border-slate-700/50 shadow-md">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4 flex items-center gap-2">
+            <i class="fas fa-bolt text-yellow-500"></i> {{ __('Actions Rapides') }}
+        </h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+            @can('create student')
+                <a href="{{ route('students.create') }}" class="flex flex-col items-center justify-center p-3 rounded-xl bg-white/80 dark:bg-slate-800/80 hover:bg-primary-500 hover:text-white dark:hover:bg-primary-600 text-slate-700 dark:text-slate-200 border border-slate-200/60 dark:border-slate-700/60 transition-all hover:-translate-y-1 shadow-sm group">
+                    <i class="fas fa-user-plus text-lg mb-1.5 text-primary-500 group-hover:text-white transition-colors"></i>
+                    <span class="text-xs font-semibold text-center">{{ __('Nouvel Élève') }}</span>
+                </a>
+            @endcan
+            @can('create teacher')
+                <a href="{{ route('teachers.create') }}" class="flex flex-col items-center justify-center p-3 rounded-xl bg-white/80 dark:bg-slate-800/80 hover:bg-primary-500 hover:text-white dark:hover:bg-primary-600 text-slate-700 dark:text-slate-200 border border-slate-200/60 dark:border-slate-700/60 transition-all hover:-translate-y-1 shadow-sm group">
+                    <i class="fas fa-chalkboard-teacher text-lg mb-1.5 text-indigo-500 group-hover:text-white transition-colors"></i>
+                    <span class="text-xs font-semibold text-center">{{ __('Ajouter Prof') }}</span>
+                </a>
+            @endcan
+            <a href="{{ route('messages.index') }}" class="flex flex-col items-center justify-center p-3 rounded-xl bg-white/80 dark:bg-slate-800/80 hover:bg-primary-500 hover:text-white dark:hover:bg-primary-600 text-slate-700 dark:text-slate-200 border border-slate-200/60 dark:border-slate-700/60 transition-all hover:-translate-y-1 shadow-sm group">
+                <i class="fas fa-paper-plane text-lg mb-1.5 text-blue-500 group-hover:text-white transition-colors"></i>
+                <span class="text-xs font-semibold text-center">{{ __('Message') }}</span>
+            </a>
+            @can('create notice')
+                <a href="{{ route('notices.create') }}" class="flex flex-col items-center justify-center p-3 rounded-xl bg-white/80 dark:bg-slate-800/80 hover:bg-primary-500 hover:text-white dark:hover:bg-primary-600 text-slate-700 dark:text-slate-200 border border-slate-200/60 dark:border-slate-700/60 transition-all hover:-translate-y-1 shadow-sm group">
+                    <i class="fas fa-bullhorn text-lg mb-1.5 text-amber-500 group-hover:text-white transition-colors"></i>
+                    <span class="text-xs font-semibold text-center">{{ __('Annonce') }}</span>
+                </a>
+            @endcan
+            @can('read timetable')
+                <a href="{{ route('timetables.index') }}" class="flex flex-col items-center justify-center p-3 rounded-xl bg-white/80 dark:bg-slate-800/80 hover:bg-primary-500 hover:text-white dark:hover:bg-primary-600 text-slate-700 dark:text-slate-200 border border-slate-200/60 dark:border-slate-700/60 transition-all hover:-translate-y-1 shadow-sm group">
+                    <i class="fas fa-calendar-alt text-lg mb-1.5 text-emerald-500 group-hover:text-white transition-colors"></i>
+                    <span class="text-xs font-semibold text-center">{{ __('Emploi du temps') }}</span>
+                </a>
+            @endcan
+            <a href="{{ route('schools.settings') }}" class="flex flex-col items-center justify-center p-3 rounded-xl bg-white/80 dark:bg-slate-800/80 hover:bg-primary-500 hover:text-white dark:hover:bg-primary-600 text-slate-700 dark:text-slate-200 border border-slate-200/60 dark:border-slate-700/60 transition-all hover:-translate-y-1 shadow-sm group">
+                <i class="fas fa-cog text-lg mb-1.5 text-slate-500 group-hover:text-white transition-colors"></i>
+                <span class="text-xs font-semibold text-center">{{ __('Paramètres') }}</span>
+            </a>
+        </div>
+    </div>
+
     @hasanyrole('admin|super-admin')
     <div class="card">
         <div class="card-body">

@@ -11,19 +11,403 @@ class Menu extends Component
     public function mount()
     {
         $this->menu = [
+            // ─── Tableau de bord ──────────────────────────────────
             [
                 'type'  => 'menu-item',
                 'icon'  => 'fas fa-tachometer-alt',
-                'text'  => 'Dashboard',
+                'text'  => 'Tableau de bord',
                 'route' => 'dashboard',
             ],
+            // ─── Messagerie ─────────────────────────────────────
             [
                 'type'  => 'menu-item',
                 'icon'  => 'fas fa-envelope',
-                'text'  => 'Messages',
+                'text'  => 'Messagerie',
                 'route' => 'messages.index',
             ],
-            ['header' => 'Manage Profile'],
+            // ─── Mon Compte ─────────────────────────────────────
+            ['header' => 'Mon Compte'],
+            [
+                'type'  => 'menu-item',
+                'icon'  => 'fas fa-user-circle',
+                'text'  => 'Profil',
+                'route' => 'profile.show',
+            ],
+            // ─── Multi‑Établissements ────────────────────────
+            ['header' => 'Multi‑Établissements', 'can' => 'header-schools'],
+            [
+                'type'    => 'menu-item',
+                'text'    => 'Établissements',
+                'icon'    => 'fas fa-school',
+                'can'     => 'menu-school',
+                'submenu' => [
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Lister les établissements',
+                        'route' => 'schools.index',
+                        'can'   => 'read school',
+                        'icon'  => 'fas fa-list',
+                    ],
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Créer un établissement',
+                        'route' => 'schools.create',
+                        'can'   => 'create school',
+                        'icon'  => 'fas fa-plus',
+                    ],
+                ],
+            ],
+            // ─── Administration ─────────────────────────────
+            ['header' => 'Administration', 'can' => 'header-administrate'],
+            [
+                'type'  => 'menu-item',
+                'icon'  => 'fas fa-cog',
+                'text'  => 'Paramètres',
+                'route' => 'schools.settings',
+                'can'   => 'manage school settings',
+            ],
+            // ─── Classes ───────────────────────────────────────
+            [
+                'type'    => 'menu-item',
+                'text'    => 'Classes',
+                'icon'    => 'fas fa-chalkboard',
+                'can'     => 'menu-class',
+                'submenu' => [
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Voir les classes',
+                        'route' => 'classes.index',
+                        'can'   => 'read class',
+                        'icon'  => 'fas fa-list',
+                    ],
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Créer une classe',
+                        'route' => 'classes.create',
+                        'can'   => 'create class',
+                        'icon'  => 'fas fa-plus',
+                    ],
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Groupes de classes',
+                        'route' => 'class-groups.index',
+                        'can'   => 'read class group',
+                        'icon'  => 'fas fa-layer-group',
+                    ],
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Créer un groupe',
+                        'route' => 'class-groups.create',
+                        'can'   => 'create class group',
+                        'icon'  => 'fas fa-plus',
+                    ],
+                ],
+            ],
+            // ─── Sections ─────────────────────────────────────
+            [
+                'type'    => 'menu-item',
+                'text'    => 'Sections',
+                'icon'    => 'fas fa-landmark',
+                'can'     => 'menu-section',
+                'submenu' => [
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Voir les sections',
+                        'route' => 'sections.index',
+                        'can'   => 'read section',
+                        'icon'  => 'fas fa-list',
+                    ],
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Créer une section',
+                        'route' => 'sections.create',
+                        'can'   => 'create section',
+                        'icon'  => 'fas fa-plus',
+                    ],
+                ],
+            ],
+            // ─── Élèves ───────────────────────────────────────
+            [
+                'type'    => 'menu-item',
+                'text'    => 'Élèves',
+                'icon'    => 'fas fa-user-graduate',
+                'can'     => 'menu-student',
+                'submenu' => [
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Lister les élèves',
+                        'route' => 'students.index',
+                        'can'   => 'read student',
+                        'icon'  => 'fas fa-list',
+                    ],
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Inscrire un élève',
+                        'route' => 'students.create',
+                        'can'   => 'create student',
+                        'icon'  => 'fas fa-user-plus',
+                    ],
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Promouvoir les élèves',
+                        'route' => 'students.promote',
+                        'can'   => 'promote student',
+                        'icon'  => 'fas fa-level-up-alt',
+                    ],
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Gestion des promotions',
+                        'route' => 'students.promotions',
+                        'can'   => 'read promotion',
+                        'icon'  => 'fas fa-history',
+                    ],
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Diplômer les élèves',
+                        'route' => 'students.graduate',
+                        'can'   => 'graduate student',
+                        'icon'  => 'fas fa-graduation-cap',
+                    ],
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Historique des diplômes',
+                        'route' => 'students.graduations',
+                        'can'   => 'view graduations',
+                        'icon'  => 'fas fa-scroll',
+                    ],
+                ],
+            ],
+            // ─── Candidatures ─────────────────────────────────
+            [
+                'type'    => 'menu-item',
+                'text'    => 'Candidatures',
+                'icon'    => 'fas fa-file-signature',
+                'can'     => 'menu-account-application',
+                'submenu' => [
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Voir les candidatures',
+                        'route' => 'account-applications.index',
+                        'can'   => 'read applicant',
+                        'icon'  => 'fas fa-list',
+                    ],
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Candidatures rejetées',
+                        'route' => 'account-applications.rejected-applications',
+                        'can'   => 'read applicant',
+                        'icon'  => 'fas fa-times-circle',
+                    ],
+                ],
+            ],
+            // ─── Enseignants ─────────────────────────────────
+            [
+                'type'    => 'menu-item',
+                'text'    => 'Enseignants',
+                'icon'    => 'fas fa-chalkboard-teacher',
+                'can'     => 'menu-teacher',
+                'submenu' => [
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Lister les enseignants',
+                        'route' => 'teachers.index',
+                        'can'   => 'read teacher',
+                        'icon'  => 'fas fa-list',
+                    ],
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Ajouter un enseignant',
+                        'route' => 'teachers.create',
+                        'can'   => 'create teacher',
+                        'icon'  => 'fas fa-user-plus',
+                    ],
+                ],
+            ],
+            // ─── Parents ───────────────────────────────────────
+            [
+                'type'    => 'menu-item',
+                'text'    => 'Parents',
+                'icon'    => 'fas fa-user-friends',
+                'can'     => 'menu-parent',
+                'submenu' => [
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Lister les parents',
+                        'route' => 'parents.index',
+                        'can'   => 'read parent',
+                        'icon'  => 'fas fa-list',
+                    ],
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Ajouter un parent',
+                        'route' => 'parents.create',
+                        'can'   => 'create parent',
+                        'icon'  => 'fas fa-user-plus',
+                    ],
+                ],
+            ],
+            // ─── Administrateurs ─────────────────────────────
+            [
+                'type'    => 'menu-item',
+                'text'    => 'Administrateurs',
+                'icon'    => 'fas fa-user-shield',
+                'can'     => 'menu-admin',
+                'submenu' => [
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Lister les administrateurs',
+                        'route' => 'admins.index',
+                        'can'   => 'read admin',
+                        'icon'  => 'fas fa-list',
+                    ],
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Créer un administrateur',
+                        'route' => 'admins.create',
+                        'can'   => 'create admin',
+                        'icon'  => 'fas fa-user-plus',
+                    ],
+                ],
+            ],
+            // ─── Années Académiques ─────────────────────────
+            [
+                'type'    => 'menu-item',
+                'text'    => 'Années Académiques',
+                'icon'    => 'fas fa-calendar-alt',
+                'can'     => 'menu-academic-year',
+                'submenu' => [
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Voir les années',
+                        'route' => 'academic-years.index',
+                        'can'   => 'read academic year',
+                        'icon'  => 'fas fa-list',
+                    ],
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Créer une année',
+                        'route' => 'academic-years.create',
+                        'can'   => 'create academic year',
+                        'icon'  => 'fas fa-plus',
+                    ],
+                ],
+            ],
+            // ─── Semestres ───────────────────────────────────
+            [
+                'type'    => 'menu-item',
+                'text'    => 'Semestres',
+                'icon'    => 'fas fa-clock',
+                'can'     => 'menu-semester',
+                'submenu' => [
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Voir les semestres',
+                        'route' => 'semesters.index',
+                        'can'   => 'read semester',
+                        'icon'  => 'fas fa-list',
+                    ],
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Créer un semestre',
+                        'route' => 'semesters.create',
+                        'can'   => 'create semester',
+                        'icon'  => 'fas fa-plus',
+                    ],
+                ],
+            ],
+            // ─── Frais Scolaires ─────────────────────────────
+            [
+                'type'    => 'menu-item',
+                'text'    => 'Frais Scolaires',
+                'icon'    => 'fas fa-hand-holding-usd',
+                'can'     => 'menu-fee',
+                'submenu' => [
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Factures',
+                        'route' => 'fee-invoices.index',
+                        'can'   => 'read fee invoice',
+                        'icon'  => 'fas fa-file-invoice',
+                    ],
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Créer une facture',
+                        'route' => 'fee-invoices.create',
+                        'can'   => 'create fee invoice',
+                        'icon'  => 'fas fa-plus',
+                    ],
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Voir les frais',
+                        'route' => 'fees.index',
+                        'can'   => 'read fee',
+                        'icon'  => 'fas fa-tags',
+                    ],
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Créer un frais',
+                        'route' => 'fees.create',
+                        'can'   => 'create fee',
+                        'icon'  => 'fas fa-plus',
+                    ],
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Catégories de frais',
+                        'route' => 'fee-categories.index',
+                        'can'   => 'read fee category',
+                        'icon'  => 'fas fa-th-list',
+                    ],
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Créer une catégorie',
+                        'route' => 'fee-categories.create',
+                        'can'   => 'create fee category',
+                        'icon'  => 'fas fa-plus',
+                    ],
+                ],
+            ],
+            // ─── Matières ─────────────────────────────────────
+            [
+                'type'    => 'menu-item',
+                'text'    => 'Matières',
+                'icon'    => 'fas fa-book',
+                'can'     => 'menu-subject',
+                'submenu' => [
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Voir les matières',
+                        'route' => 'subjects.index',
+                        'can'   => 'read subject',
+                        'icon'  => 'fas fa-list',
+                    ],
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Créer une matière',
+                        'route' => 'subjects.create',
+                        'can'   => 'create subject',
+                        'icon'  => 'fas fa-plus',
+                    ],
+                    [
+                        'type'  => 'menu-item',
+                        'text'  => 'Affecter un enseignant',
+                        'route' => 'subjects.assign-teacher',
+                        'can'   => 'update subject',
+                        'icon'  => 'fas fa-user-tag',
+                    ],
+                ],
+            ],
+            // ─── Vie Scolaire ─────────────────────────────────
+            ['header' => 'Vie Scolaire', 'can' => 'header-academics'],
+            [
+            // ─── Système ──────────────────────────────────────────
+            [
+                'type'  => 'menu-item',
+                'text'  => 'Journaux Système',
+                'route' => 'log-viewer.index',
+                'icon'  => 'fas fa-terminal',
+                'can'   => 'view logs',
+            ],
+        ];
             [
                 'type'  => 'menu-item',
                 'icon'  => 'fas fa-user',

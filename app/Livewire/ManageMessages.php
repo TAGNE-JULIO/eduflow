@@ -62,13 +62,36 @@ class ManageMessages extends Component
         $this->activeTab = 'read';
     }
 
+    public function replyTo($senderId, $subject)
+    {
+        $this->receiver_id = $senderId;
+        $this->subject = str_starts_with($subject ?? '', 'Re: ') ? $subject : 'Re: ' . ($subject ?? '');
+        $this->body = '';
+        $this->activeTab = 'compose';
+    }
+
     public function render()
     {
-        $inbox = Message::with('sender')->where('receiver_id', auth()->id())->orderBy('created_at', 'desc')->get();
-        $sent = Message::with('receiver')->where('sender_id', auth()->id())->orderBy('created_at', 'desc')->get();
+        $user = auth()->user();
         
-        // For selecting a receiver
-        $users = User::where('id', '!=', auth()->id())->orderBy('name')->get();
+        $inbox = Message::with('sender')->where('receiver_id', $user->id)->orderBy('created_at', 'desc')->get();
+        $sent = Message::with('receiver')->where('sender_id', $user->id)->orderBy('created_at', 'desc')->get();
+        
+        // Strict tenant isolation: scope by school_id
+        $usersQuery = User::where('id', '!=', $user->id);
+        
+        if ($user->school_id) {
+            $usersQuery->where('school_id', $user->school_id);
+        }
+
+        // Role-based actor isolation
+        if ($user->hasRole(['student', 'parent'])) {
+            $usersQuery->whereHas('roles', function ($q) {
+                $q->whereIn('name', ['teacher', 'admin', 'super-admin', 'super_admin', 'applicant']);
+            });
+        }
+
+        $users = $usersQuery->orderBy('name')->get();
 
         return view('livewire.manage-messages', compact('inbox', 'sent', 'users'))
             ->layout('layouts.app');

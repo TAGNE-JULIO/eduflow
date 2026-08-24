@@ -8,11 +8,11 @@
 @layer base {
     body {
         font-family: 'Inter', sans-serif;
-        @apply bg-slate-50 text-slate-800 antialiased selection:bg-indigo-500 selection:text-white transition-colors duration-300;
+        @apply bg-slate-50 text-slate-800 antialiased selection:bg-primary-500 selection:text-white transition-colors duration-300 bg-mesh-light bg-fixed;
     }
     
     body.dark {
-        @apply bg-slate-900 text-slate-100;
+        @apply bg-slate-900 text-slate-100 bg-mesh-dark bg-fixed;
     }
 
     h1, h2, h3, h4, h5, h6 {
@@ -22,7 +22,18 @@
 
 @layer utilities {
     .glass {
-        @apply bg-white/70 dark:bg-slate-800/70 backdrop-blur-md border border-white/20 dark:border-slate-700/50 shadow-sm;
+        @apply bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl border border-white/40 dark:border-slate-700/50 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.1)];
+    }
+
+    .skeleton-shimmer {
+        background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+        background-size: 200% 100%;
+        animation: shimmer 1.5s infinite;
+    }
+
+    @keyframes shimmer {
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
     }
 }
 
@@ -46,26 +57,34 @@
     }
 
     .card {
-        @apply bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 my-6 transition-shadow duration-300 hover:shadow-md;
+        @apply bg-white dark:bg-slate-800 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] dark:shadow-[0_2px_10px_-3px_rgba(0,0,0,0.3)] border border-slate-200/60 dark:border-slate-700/60 my-6 transition-all duration-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:-translate-y-0.5 relative overflow-hidden;
+    }
+
+    .card::before {
+        content: '';
+        @apply absolute inset-0 bg-gradient-to-br from-white/40 to-transparent dark:from-white/5 opacity-0 transition-opacity duration-300 pointer-events-none;
+    }
+    .card:hover::before {
+        @apply opacity-100;
     }
 
     .card-header {
-        @apply px-5 md:px-8 py-4 border-b border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/50 rounded-t-xl;
+        @apply px-5 md:px-8 py-4 border-b border-slate-100 dark:border-slate-700/60 bg-slate-50/50 dark:bg-slate-800/30 rounded-t-2xl backdrop-blur-sm;
     }
 
     .card-body {
-        @apply px-5 md:px-8 py-6;
+        @apply px-5 md:px-8 py-6 relative z-10;
     }
 
     .card-title {
-        @apply md:text-xl capitalize font-semibold text-slate-800 dark:text-slate-100 tracking-tight;
+        @apply md:text-xl capitalize font-bold text-slate-800 dark:text-slate-100 tracking-tight;
     }
     
     .btn-primary {
-        @apply inline-flex items-center justify-center px-4 py-2 bg-indigo-600 border border-transparent rounded-lg font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 active:bg-indigo-800 transition-all shadow-sm;
+        @apply inline-flex items-center justify-center px-5 py-2.5 bg-gradient-to-r from-primary-600 to-primary-500 border border-transparent rounded-xl font-semibold text-white hover:from-primary-700 hover:to-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 active:scale-95 transition-all shadow-md shadow-primary-500/20 hover:shadow-lg hover:shadow-primary-500/40;
     }
     
     .form-input {
-        @apply block w-full rounded-lg border-slate-300 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm transition-colors;
+        @apply block w-full rounded-xl border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-900/50 dark:text-slate-200 shadow-sm focus:border-primary-500 focus:ring-primary-500 focus:bg-white dark:focus:bg-slate-800 sm:text-sm transition-all duration-200;
     }
 }

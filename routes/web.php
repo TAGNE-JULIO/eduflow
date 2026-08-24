@@ -24,6 +24,9 @@ Route::get('/home', function () {
     return redirect()->route('dashboard');
 });
 
+// Locale switcher route
+Route::get('/locale/{locale}', [\App\Http\Controllers\LocaleController::class, 'switch'])->name('locale.switch');
+
 Route::middleware(['guest'])->group(function () {
     Route::get('/register', ['App\Http\Controllers\RegistrationController', 'registerView'])->name('register');
     Route::post('/register', ['App\Http\Controllers\RegistrationController', 'register']);
