@@ -68,21 +68,21 @@
             </button>
             <div class="absolute bg-white/90 dark:bg-slate-800/90 backdrop-blur-xl top-12 w-80 right-12 border border-slate-200/50 dark:border-slate-700/50 shadow-[0_8px_30px_rgb(0,0,0,0.12)] rounded-2xl p-4 z-50 origin-top-right transition-all" 
                  x-show="notificationsOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 scale-95 translate-y-2" x-transition:enter-end="opacity-100 scale-100 translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 scale-100 translate-y-0" x-transition:leave-end="opacity-0 scale-95 translate-y-2" style="display: none" @click.outside="notificationsOpen = false">
-                <h3 class="text-sm font-bold text-slate-800 dark:text-slate-100 border-b dark:border-slate-700 pb-2 mb-2">Notifications</h3>
+                <h3 class="text-sm font-bold text-slate-800 dark:text-slate-100 border-b dark:border-slate-700 pb-2 mb-2">{{ __("Notifications") }}</h3>
                 <div class="max-h-64 overflow-y-auto beautify-scrollbar flex flex-col gap-2">
                     @forelse(auth()->user()->unreadNotifications as $notification)
                         <div class="bg-slate-50 dark:bg-slate-700 p-2 rounded text-sm text-slate-700 dark:text-slate-300 border border-slate-100 dark:border-slate-600">
-                            {{ $notification->data['message'] ?? 'New notification' }}
+                            {{ $notification->data['message'] ?? __('Nouvelle notification') }}
                             <div class="text-[10px] text-slate-400 mt-1">{{ $notification->created_at->diffForHumans() }}</div>
                         </div>
                     @empty
-                        <p class="text-xs text-slate-500 text-center py-3">No new notifications.</p>
+                        <p class="text-xs text-slate-500 text-center py-3">{{ __("Aucune nouvelle notification.") }}</p>
                     @endforelse
                 </div>
                 @if(auth()->user()->unreadNotifications->count() > 0)
                     <form action="{{route('notifications.mark-as-read')}}" method="POST" class="mt-3 text-center border-t border-slate-100 dark:border-slate-700 pt-3">
                         @csrf
-                        <button type="submit" class="text-primary-600 dark:text-primary-400 text-xs font-bold hover:text-primary-700 transition-colors">Mark all as read</button>
+                        <button type="submit" class="text-primary-600 dark:text-primary-400 text-xs font-bold hover:text-primary-700 transition-colors">{{ __('Tout marquer comme lu') }}</button>
                     </form>
                 @endif
             </div>
@@ -101,13 +101,13 @@
             <h2 class="text-lg font-bold tracking-tight">{{auth()->user()->name}}</h2>
             <p class="text-center text-sm text-slate-500 dark:text-slate-400 mt-1">
                 @isset(auth()->user()->school)
-                    <span class="font-medium text-slate-700 dark:text-slate-300">Academic year:</span> {{auth()->user()->school->academicYear?->name}} <br>
-                    <span class="font-medium text-slate-700 dark:text-slate-300">Semester:</span> {{auth()->user()->school->semester?->name}}
+                    <span class="font-medium text-slate-700 dark:text-slate-300">{{ __("Année Académique") }}:</span> {{auth()->user()->school->academicYear?->name}} <br>
+                    <span class="font-medium text-slate-700 dark:text-slate-300">{{ __("Semestre") }}:</span> {{auth()->user()->school->semester?->name}}
                 @endif
             </p>
             <form action="{{route('logout')}}" class="w-full mt-4" method="POST">
                 @csrf
-                <button href="" class="w-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-800 dark:text-slate-100 font-medium py-2 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"><i class="fa fa-power-off text-red-500" aria-hidden="true"></i>Log out</button>
+                <button href="" class="w-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-800 dark:text-slate-100 font-medium py-2 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"><i class="fa fa-power-off text-red-500" aria-hidden="true"></i>{{ __("Déconnexion") }}</button>
             </form>
         </div>
         </div>

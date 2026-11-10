@@ -1,10 +1,10 @@
 @extends('layouts.app', ['breadcrumbs' => [
-    ['href'=> route('dashboard'), 'text'=> 'Dashboard', 'active'],
+    ['href'=> route('dashboard'), 'text'=> __('Tableau de bord'), 'active'],
 ]])
 
 @section('title', __('Dashboard'))
 
-@section('page_heading', 'Dashboard')
+@section('page_heading', __('Tableau de bord'))
 
 @section('content')
 
@@ -57,7 +57,7 @@
             <div class="card bg-purple-500 dark:bg-purple-600 text-white md:text-xl">
                 <div class="card-body flex gap-4 items-center justify-center p-4">
                     <i class="fa fa-download" aria-hidden="true"></i>
-                    <p class="font-bold">Download Profile</p>
+                    <p class="font-bold">{{ __("Télécharger le profil") }}</p>
                 </div>
             </div>
         </a>
