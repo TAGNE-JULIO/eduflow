@@ -1,17 +1,28 @@
 @props(['paths' => []])
 
-<ol class="capitalize my-4">
+<nav class="flex items-center my-2" aria-label="Breadcrumb">
     @isset ($paths)
-        <i class="fa fa-home mr-2" aria-hidden="true"></i>
-        @foreach ($paths as $path)
-            @if (!in_array('active', $path))
-                <li class="breadcrumb-item inline mx-1 text-capitalize text-sm"><a class="text-blue-600 dark:text-blue-400" href="{{$path['href']}}">{{__($path['text'])}}</a></li>
-            @else
-                <li class="breadcrumb-item inline mx-1 active text-capitalize text-sm">{{__($path['text'])}}</li>
-            @endif
-            @if (!$loop->last)
-                <i class="fa fa-angle-right inline mx-1 text-sm" aria-hidden="true"></i>
-            @endif
-         @endforeach
+        <ol class="inline-flex items-center space-x-1.5 md:space-x-2 text-xs font-medium text-slate-500 dark:text-slate-400">
+            <li class="inline-flex items-center">
+                <a href="{{ route('dashboard') }}" class="inline-flex items-center hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                    <i class="fa fa-home mr-1.5 text-xs text-slate-400 dark:text-slate-500" aria-hidden="true"></i>
+                    <span>{{ __('Accueil') }}</span>
+                </a>
+            </li>
+            @foreach ($paths as $path)
+                <li class="inline-flex items-center">
+                    <i class="fa fa-chevron-right text-[10px] text-slate-400 dark:text-slate-600 mx-1.5" aria-hidden="true"></i>
+                    @if (!in_array('active', $path))
+                        <a href="{{ $path['href'] }}" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                            {{ __($path['text']) }}
+                        </a>
+                    @else
+                        <span class="text-slate-800 dark:text-slate-200 font-semibold" aria-current="page">
+                            {{ __($path['text']) }}
+                        </span>
+                    @endif
+                </li>
+            @endforeach
+        </ol>
     @endif
-</ol>
+</nav>
